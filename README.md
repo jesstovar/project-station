@@ -1,16 +1,16 @@
 # Project Station
 
--Minimum viable product that fulfills the need for project managers to streamline the approval process for development requests. 
+- Minimum viable product that fulfills the need for project managers to streamline the approval process for development requests. 
 
-Spotlighting 
+»Spotlighting 
 
-React
+»React
  - map()
  - forEach()
  - AJAX calls
  - State Management
  
-CSS
+»CSS
  - check box style overwrite
  - conditionally updatable styles
 
