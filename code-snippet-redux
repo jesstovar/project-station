@@ -1,0 +1,86 @@
+//ACTION
+
+let id= 0
+export const addDepartment = department => ({
+  type: "ADD_DEPARTMENT"
+  ,id: id++
+  ,time: Date()
+  ,department
+});
+
+export const deleteDepartment = department => ({
+  type: "DELETE_DEPARTMENT"
+, department
+});
+
+export const updateDepartment = department => ({
+  type: "UPDATE_DEPARTMENT"
+,department
+}); 
+
+//REDUCER
+
+const departments = ( state = [], action) => {
+  switch (action.type){
+    case "ADD_DEPARTMENT": //actions must be distinct 
+    
+    return [...state, {id: action.id, department: action.department.name, time: action.time}];
+    case "DELETE_DEPARTMENT": 
+    return state.filter(department => department.id !== action.department.id);
+    case "UPDATE_DEPARTMENT": 
+    return state.map(department => { 
+      if (department.id === action.department.id){
+        department.time = "wow! I just updated!"
+        return department
+      } else{
+        return department
+      }
+    })
+    default: 
+    return state;
+  }
+};
+
+export default departments;
+
+//APP.JS
+
+import React, { Component } from "react";
+import "./App.css";
+import "typeface-open-sans";
+import { CookiesProvider } from "react-cookie";
+import { Router } from "react-router-dom";
+import LayoutSwitcher from "./containers/LayoutSwitcher"
+import history from "../src/axiosConfig/history"
+
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import reducedStore from "./reducers/index";
+import ScrollToTop from "./ScrollToTop";
+
+const store = createStore(reducedStore);
+
+class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {}
+  }
+
+  render() {
+    return (
+      <Provider store={store}>
+        <div className="App">
+          <Router history={history}>
+            <ScrollToTop>
+              <CookiesProvider>
+                <LayoutSwitcher />
+              </CookiesProvider>
+            </ScrollToTop>
+          </Router>
+        </div>
+      </Provider>
+    );
+  }
+}
+
+export default App;
